@@ -28,9 +28,9 @@ class LatexWordCounter(object):
     def add_file(self, fname):
         self._files.append(fname)
     
-    def add_folder(self, fname):
+    def add_folder(self, path):
         for r, dirs, files in os.walk(path):
-            self._files += [ f for f in files if ".tex" in f]
+            self._files += [ "{dir}/{fname}".format(dir=r, fname=f) for f in files if ".tex" in f]
 
     def prepare(self):
         # read all files
@@ -39,6 +39,7 @@ class LatexWordCounter(object):
             try:
                 f = open(fname, 'rb')
             except IOError:
+                print fname
                 print("Please provide a valid .tex-file.")
                 sys.exit()        
             wholewords = f.read()
@@ -147,12 +148,13 @@ class LatexWordCounter(object):
 
 
 # read command line argument
-try:
-    path = sys.argv[1]
-except IndexError:
-    print("Please provide a file name for counting.")
-    sys.exit()
+if __name__ == "__main__":
+    try:
+        path = sys.argv[1]
+    except IndexError:
+        print("Please provide a file name for counting.")
+        sys.exit()
 
-counter = LatexWordCounter([path])
-n = counter.count_words()
-print("{} words".format(n))
+    counter = LatexWordCounter([path])
+    n = counter.count_words()
+    print("{} words".format(n))
