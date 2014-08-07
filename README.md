@@ -12,9 +12,18 @@ See the [license file](latex-wordcount/raw/master/gpl-2.0.txt) for more informat
 ## Purpose
 Counts number of words in a LaTeX file.
 
-Just run the script with a *tex*-file as argument:
+Either just run the script with a *tex*-file as argument:
 
     python wordcount.py file.tex
+
+Or use the class from in another python script:
+	from wordcount import LatexWordCounter
+	counter = LatexWordCounter(["file.tex"])
+	print counter.count_words() # returns number of words in file.tex
+
+	counter.add_folder("chapters")
+	print counter.count_words() # returns number of words in file.tex+all .tex files in chapters/
+
 
 ## Word count
 Counted as text:
