@@ -16,13 +16,14 @@ Either just run the script with a *tex*-file as argument:
 
     python wordcount.py file.tex
 
-Or use the class from in another python script:
+Or use the class from in another python script:	
 	
 	from wordcount import LatexWordCounter
 	counter = LatexWordCounter(["file.tex"])
 	print counter.count_words() # returns number of words in file.tex
 
-
+You can also add whole folders containing several .tex files:
+	
 	from wordcount import LatexWordCounter
 	counter = LatexWordCounter(["file.tex"])
 	counter.add_folder("chapters")
